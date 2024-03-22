@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 import styles from './style.module.scss'
 import { getParentQuestions } from '../_functions/parent'
-import { Card } from 'antd'
+import { Button, Card } from 'antd'
 import { Question_T } from '@/types/Question'
 
 const Parent = () => {
@@ -35,6 +35,15 @@ const Parent = () => {
           )
         })
       }
+      <div style={{
+        width:'100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '20px'
+      }}>
+        <Button type="default">Submit</Button>
+      </div>
     </div>
     
   )

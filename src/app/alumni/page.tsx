@@ -8,6 +8,8 @@ import { Card } from 'antd'
 import { Question_T } from '@/types/Question'
 import Typography from 'antd'
 
+import {Button} from 'antd'
+
 // const {p} = Typography
 
 const Alumni = () => {
@@ -110,6 +112,15 @@ const Alumni = () => {
               }
         </div>
         
+      </div>
+      
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '20px'
+      }}>
+        <Button type="default">Submit</Button>
       </div>
       
     </div>

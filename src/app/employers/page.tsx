@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 import styles from './style.module.scss'
 import { getEmployerQuestions } from '../_functions/employer'
-import { Card } from 'antd'
+import { Button, Card } from 'antd'
 import { Question_T } from '@/types/Question'
 
 const Alumni = () => {
@@ -35,6 +35,15 @@ const Alumni = () => {
           )
         })
       }
+      <div style={{
+        width:'100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '20px'
+      }}>
+        <Button type="default">Submit</Button>
+      </div>
     </div>
     
   )

@@ -68,11 +68,13 @@
             @include flex-container(column, center, center);
             cursor: pointer;
             font-size: 1.2rem;
+            color: gray;
 
             &>div:first-child {
                 height: 3rem;
                 aspect-ratio: 1;
                 font-size: 2rem;
+                // border: 1px solid red;
             }
         }
 

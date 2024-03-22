@@ -32,7 +32,7 @@ const App = () => {
         <div>
           <Link href='/parents' >
             <div><RiParentFill /></div>
-            Parent Feedback
+            <p>Parent Feedback</p>
           </Link>
         </div>
         <div>

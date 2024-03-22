@@ -4,9 +4,19 @@ import {z} from 'zod';
 import StudentModel from '../_model/student.model';
 import { dbConnection } from '../db/dbConnect';
 import { StudentSchema } from '@/_validation/Student.schema';
+import QuestionModel from '../_model/question.model';
 
-export async function GET(request: NextRequest) {
-    return NextResponse.json({'message ' :'server is up and running'})
+export async function GET() {
+    try {
+
+    await dbConnection();
+
+    const resdata = await QuestionModel.find({entity: 'student'});
+
+    return NextResponse.json(resdata);
+    } catch (error) {
+        console.log(error);
+    }   
 }
 
 export async function POST(request: NextRequest) {

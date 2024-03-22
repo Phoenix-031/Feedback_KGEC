@@ -18,7 +18,8 @@ export async function POST(request: NextRequest) {
             const question = new QuestionModel({
                 questionText: body.questionText,
                 answer: body.answer,
-                section: body.section
+                section: body.section,
+                entity : body.entity,
             });
 
             await question.save();

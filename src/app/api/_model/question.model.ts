@@ -14,6 +14,10 @@ const questionSchema = new Schema(
     section :{
         type: String,
         required: true
+    },
+    entity : {
+        type: String,
+        required: true
     }
   },
   {

@@ -1,13 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {z} from 'zod';
 import { dbConnection } from '../db/dbConnect';
-import { QuesitonSchema } from '@/_validation/Question.schema';
-import QuestionModel from '../_model/question.model';
 import { AlumniSchema } from '@/_validation/Alumni.schema';
 import AlumniModel from '../_model/alumni.model';
+import QuestionModel from '../_model/question.model';
 
-export async function GET(request: NextRequest) {
-    return NextResponse.json({'message ' :'server is up and running'})
+export async function GET() {
+    try {
+
+    await dbConnection();
+
+    const resdata = await QuestionModel.find({entity: 'alumni'});
+
+    return NextResponse.json(resdata);
+    } catch (error) {
+        console.log(error);
+    }   
 }
 
 export async function POST(request: NextRequest) {

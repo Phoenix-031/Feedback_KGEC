@@ -4,9 +4,19 @@ import {z} from 'zod';
 import ParentModel from '../_model/parent.model';
 import { dbConnection } from '../db/dbConnect';
 import { ParentSchema } from '@/_validation/Parent.schema';
+import QuestionModel from '../_model/question.model';
 
-export async function GET(request: NextRequest) {
-    return NextResponse.json({'message ' :'server is up and running'})
+export async function GET() {
+    try {
+
+    await dbConnection();
+
+    const resdata = await QuestionModel.find({entity: 'parent'});
+
+    return NextResponse.json(resdata);
+    } catch (error) {
+        console.log(error);
+    }   
 }
 
 export async function POST(request: NextRequest) {

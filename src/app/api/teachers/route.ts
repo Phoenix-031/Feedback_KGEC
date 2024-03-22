@@ -7,8 +7,17 @@ import QuestionModel from '../_model/question.model';
 import TeacherModel from '../_model/teacher.model';
 import { TeacherSchema } from '@/_validation/Teacher.schema';
 
-export async function GET(request: NextRequest) {
-    return NextResponse.json({'message ' :'server is up and running'})
+export async function GET() {
+    try {
+
+    await dbConnection();
+
+    const resdata = await QuestionModel.find({entity: 'teacher'});
+
+    return NextResponse.json(resdata);
+    } catch (error) {
+        console.log(error);
+    }   
 }
 
 export async function POST(request: NextRequest) {

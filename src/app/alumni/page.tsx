@@ -37,9 +37,11 @@ const Alumni = () => {
               {
                 questions.filter((question : Question_T) => question.section === 'Knowledge').map((question : Question_T, index) => {
                   return (
-                    <Card key={index}>
-                      <p>{question.questionText}</p>
-                    </Card>
+            <Card key={index} style={{
+              width: '100%',
+            }}>
+              <p>{question.questionText}</p>
+            </Card>
                   )
                 })
               }
@@ -56,9 +58,11 @@ const Alumni = () => {
               {
                 questions.filter((question : Question_T) => question.section === 'Communication Skills').map((question : Question_T, index) => {
                   return (
-                    <Card key={index}>
-                      <p>{question.questionText}</p>
-                    </Card>
+            <Card key={index} style={{
+              width: '100%',
+            }}>
+              <p>{question.questionText}</p>
+            </Card>
                   )
                 })
               }
@@ -75,9 +79,11 @@ const Alumni = () => {
               {
                 questions.filter((question : Question_T) => question.section === 'Interpersonal Skills').map((question : Question_T, index) => {
                   return (
-                    <Card key={index}>
-                      <p>{question.questionText}</p>
-                    </Card>
+            <Card key={index} style={{
+              width: '100%',
+            }}>
+              <p>{question.questionText}</p>
+            </Card>
                   )
                 })
               }
@@ -94,9 +100,11 @@ const Alumni = () => {
               {
                 questions.filter((question : Question_T) => question.section === 'Management/ leadership Skills').map((question : Question_T, index) => {
                   return (
-                    <Card key={index}>
-                      <p>{question.questionText}</p>
-                    </Card>
+            <Card key={index} style={{
+              width: '100%',
+            }}>
+              <p>{question.questionText}</p>
+            </Card>
                   )
                 })
               }

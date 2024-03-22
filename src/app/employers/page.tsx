@@ -23,11 +23,13 @@ const Alumni = () => {
   },[])
   
   return (
-    <div>
+    <div className={styles.main__container}>
       {
         questions.map((question : Question_T, index) => {
           return (
-            <Card key={index}>
+            <Card key={index} style={{
+              width: '100%',
+            }}>
               <p>{question.questionText}</p>
             </Card>
           )

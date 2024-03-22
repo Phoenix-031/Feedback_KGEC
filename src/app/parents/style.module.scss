@@ -1,0 +1,14 @@
+@mixin flex-container($direction: row, $justify: flex-start, $align: flex-start) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+
+.main__container {
+    --padding: 1rem;
+    padding: var(--padding);
+    gap: 1rem;
+    @include flex-container(column, center, baseline)
+}

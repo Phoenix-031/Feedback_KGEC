@@ -29,6 +29,6 @@ const parentSchema = new Schema(
   }
 );
 
-const EmployerModel =
-  mongoose.models.Employer ?? model('Employer', parentSchema);
-export default EmployerModel;
+const ParentModel =
+  mongoose.models.Employer ?? model('Parent', parentSchema);
+export default ParentModel;

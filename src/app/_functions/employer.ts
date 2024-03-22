@@ -10,13 +10,6 @@ export const getEmployerQuestions = async () => {
         success: true,
         data: response.data
     }
-
-    // if (response.status !== 200) {
-    //   return {
-    //     success: false,
-    //     message: 'Login failed',
-    //   };
-    // }
   } catch (error) {
     return {
       success: false,
@@ -30,12 +23,6 @@ export const postEmployerResponse = async (data: any) => {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     try {
         const response = await axios.post(`${API_URL}/alumni`, data);
-        // if (response.status !== 200) {
-        // return {
-        //     success: false,
-        //     message: 'Response failed',
-        // };
-        // }
         return {
         success: true,
         message: 'Response successful',

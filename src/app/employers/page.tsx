@@ -22,7 +22,7 @@ const Alumni = () => {
   },[])
   
   return (
-    <div>Alumni</div>
+    <div>Employers</div>
     
   )
 }

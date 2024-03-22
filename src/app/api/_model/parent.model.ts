@@ -30,5 +30,5 @@ const parentSchema = new Schema(
 );
 
 const ParentModel =
-  mongoose.models.Employer ?? model('Parent', parentSchema);
+  mongoose.models.Parent ?? model('Parent', parentSchema);
 export default ParentModel;

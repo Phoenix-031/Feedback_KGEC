@@ -3,18 +3,18 @@ import mongoose, { model, Model, Schema, Types } from 'mongoose';
 
 const questionSchema = new Schema(
   {
-    questions:[
-        {
-            questionText : {
-                type: String,
-                required: true
-            },
-            answer : {
-                type: String,
-                required: true
-            }
-        }
-    ]
+    questionText : {
+        type: String,
+        required: true
+    },
+    answer : {
+        type: String,
+        default: ""
+    },
+    section :{
+        type: String,
+        required: true
+    }
   },
   {
     timestamps: true,

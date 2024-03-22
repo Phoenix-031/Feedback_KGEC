@@ -7,15 +7,15 @@ import { getStudentQuestions } from '../_functions/student'
 import { Card } from 'antd'
 import { Question_T } from '@/types/Question'
 
+
 const Student = () => {
 
   const [questions, setQuestions] = useState([])
-  
+
   useEffect(() => {
 
     const getdata = async() => {
       const dt = await getStudentQuestions();
-      // console.log(dt)
       setQuestions(dt.data)
     }
 

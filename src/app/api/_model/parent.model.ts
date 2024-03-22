@@ -14,6 +14,14 @@ const parentSchema = new Schema(
     relationship :{
         type: String,
         required: true
+    },
+    name :{
+        type: String,
+        required: true
+    },
+    studentName :{
+        type: String,
+        required: true
     }
   },
   {

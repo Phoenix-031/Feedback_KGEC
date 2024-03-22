@@ -14,6 +14,14 @@ const parentSchema = new Schema(
     relationship :{
         type: String,
         required: true
+    },
+    name :{
+        type: String,
+        required: true
+    },
+    studentName :{
+        type: String,
+        required: true
     }
   },
   {
@@ -21,6 +29,6 @@ const parentSchema = new Schema(
   }
 );
 
-const EmployerModel =
-  mongoose.models.Employer ?? model('Employer', parentSchema);
-export default EmployerModel;
+const ParentModel =
+  mongoose.models.Parent ?? model('Parent', parentSchema);
+export default ParentModel;

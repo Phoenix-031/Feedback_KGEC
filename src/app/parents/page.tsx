@@ -1,11 +1,30 @@
 'use client'
 
-import styles from './style.module.scss'
+import React, { useEffect, useState } from 'react'
 
-const Parents = () => {
+import styles from './style.module.scss'
+import { getParentQuestions } from '../_functions/parent'
+
+const Parent = () => {
+
+  const [questions, setQuestions] = useState([])
+  
+  useEffect(() => {
+
+    const getdata = async() => {
+      const dt = await getParentQuestions();
+      console.log(dt)
+      setQuestions(dt.data)
+    }
+
+    getdata();
+    
+  },[])
+  
   return (
-    <div>Parents</div>
+    <div>Parent</div>
+    
   )
 }
 
-export default Parents
+export default Parent

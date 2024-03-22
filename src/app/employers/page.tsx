@@ -1,13 +1,30 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styles from './style.module.scss'
+import { getEmployerQuestions } from '../_functions/employer'
 
-const Employers = () => {
+const Alumni = () => {
+
+  const [questions, setQuestions] = useState([])
+  
+  useEffect(() => {
+
+    const getdata = async() => {
+      const dt = await getEmployerQuestions();
+      console.log(dt)
+      setQuestions(dt.data)
+    }
+
+    getdata();
+    
+  },[])
+  
   return (
-    <div>Employers</div>
+    <div>Alumni</div>
+    
   )
 }
 
-export default Employers
+export default Alumni

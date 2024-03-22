@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 
 import styles from './style.module.scss'
 import { getTeacherQuestions } from '../_functions/teacher'
+import { Card } from 'antd'
+import { Question_T } from '@/types/Question'
 
 const Teacher = () => {
 
@@ -13,8 +15,7 @@ const Teacher = () => {
 
     const getdata = async() => {
       const dt = await getTeacherQuestions();
-      console.log(dt)
-      // setQuestions(dt.data)
+      setQuestions(dt.data)
     }
 
     getdata();
@@ -22,7 +23,17 @@ const Teacher = () => {
   },[])
   
   return (
-    <div>Teacher</div>
+    <div>
+      {
+        questions.map((question : Question_T, index) => {
+          return (
+            <Card key={index}>
+              <p>{question.questionText}</p>
+            </Card>
+          )
+        })
+      }
+    </div>
     
   )
 }

@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 
 import styles from './style.module.scss'
 import { getParentQuestions } from '../_functions/parent'
+import { Card } from 'antd'
+import { Question_T } from '@/types/Question'
 
 const Parent = () => {
 
@@ -13,7 +15,6 @@ const Parent = () => {
 
     const getdata = async() => {
       const dt = await getParentQuestions();
-      console.log(dt)
       setQuestions(dt.data)
     }
 
@@ -22,7 +23,17 @@ const Parent = () => {
   },[])
   
   return (
-    <div>Parent</div>
+    <div>
+      {
+        questions.map((question : Question_T, index) => {
+          return (
+            <Card key={index}>
+              <p>{question.questionText}</p>
+            </Card>
+          )
+        })
+      }
+    </div>
     
   )
 }

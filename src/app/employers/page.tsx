@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 
 import styles from './style.module.scss'
 import { getEmployerQuestions } from '../_functions/employer'
+import { Card } from 'antd'
+import { Question_T } from '@/types/Question'
 
 const Alumni = () => {
 
@@ -13,7 +15,6 @@ const Alumni = () => {
 
     const getdata = async() => {
       const dt = await getEmployerQuestions();
-      console.log(dt)
       setQuestions(dt.data)
     }
 
@@ -22,7 +23,17 @@ const Alumni = () => {
   },[])
   
   return (
-    <div>Employers</div>
+    <div>
+      {
+        questions.map((question : Question_T, index) => {
+          return (
+            <Card key={index}>
+              <p>{question.questionText}</p>
+            </Card>
+          )
+        })
+      }
+    </div>
     
   )
 }

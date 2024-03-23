@@ -4,14 +4,15 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, Typography } from 'antd';
 
+import { postStudentResponse } from '@/app/_functions/student';
 import { getTeacherQuestions } from '@/app/_functions/teacher';
 import LabelInput from '@/components/LabelInput/LabelInput';
 import LabelSelect from '@/components/LabelSelect/LabelSelect';
+import Loading from '@/components/Loading/Loading';
 import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
 
 import { Departments, YearOfStudy } from './types';
-import { postStudentResponse } from '@/app/_functions/student';
 
 const { Text, Title } = Typography;
 
@@ -45,7 +46,7 @@ const Student = () => {
     margin: '1.5rem 1rem',
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   return (
     <div>
       <Title
@@ -187,29 +188,28 @@ const Student = () => {
           //   console.log(yearOfStudy);
           // }}
 
-          onClick={async() => {
+          onClick={async () => {
             const newanswers = Object.keys(answers).map((key) => {
               return {
                 question_id: key,
                 answer: answers[key],
               };
-            })
+            });
             // console.log(newanswers);
             const data = {
-              rollNo : universityRoll,
+              rollNo: universityRoll,
               department: department,
               accademicYear: accademicYear,
-              answers:newanswers,
+              answers: newanswers,
               yearOfStudy: yearOfStudy,
-            }
+            };
             setLoading(true);
             const res = await postStudentResponse(data);
             // console.log(res);
-            if(res.success) {
+            if (res.success) {
               alert('Response submitted successfully');
             }
             setLoading(false);
-
           }}
         >
           Submit

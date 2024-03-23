@@ -4,8 +4,12 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, Typography } from 'antd';
 
-import { getTeacherQuestions, postTeacherResponse } from '@/app/_functions/teacher';
+import {
+  getTeacherQuestions,
+  postTeacherResponse,
+} from '@/app/_functions/teacher';
 import LabelInput from '@/components/LabelInput/LabelInput';
+import Loading from '@/components/Loading/Loading';
 import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
 
@@ -42,7 +46,7 @@ const Teacher = () => {
     margin: '1.5rem 1rem',
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   return (
     <div>
       <Title
@@ -127,29 +131,27 @@ const Teacher = () => {
       >
         <Button
           type="default"
-
-          onClick={async() => {
+          onClick={async () => {
             const newanswers = Object.keys(answers).map((key) => {
               return {
                 question_id: key,
                 answer: answers[key],
               };
-            })
+            });
             // console.log(newanswers);
             const data = {
-              name : name,
-              branch : branch,
+              name: name,
+              branch: branch,
               answers: newanswers,
               accademicYear: accademicYear,
-            }
+            };
             setLoading(true);
             const res = await postTeacherResponse(data);
             // console.log(res);
-            if(res.success) {
+            if (res.success) {
               alert('Response submitted successfully');
             }
             setLoading(false);
-
           }}
         >
           Submit

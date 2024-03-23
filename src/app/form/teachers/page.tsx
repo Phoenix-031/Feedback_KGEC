@@ -13,8 +13,6 @@ import Loading from '@/components/Loading/Loading';
 import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
 
-import styles from './style.module.scss';
-
 const { Text, Title } = Typography;
 
 const Teacher = () => {
@@ -60,7 +58,13 @@ const Teacher = () => {
         Teacher Feedback Form
       </Title>
 
-      <div className={styles.input_container_layout}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+        }}
+      >
         <LabelInput
           value={name}
           placeholder="Name"

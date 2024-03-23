@@ -8,9 +8,9 @@ function FormLayout({ children }: PropsWithChildren) {
         display: 'flex',
         flexDirection: 'column',
         margin: '0 auto',
+        paddingInline: '1rem',
       }}
     >
-      adsfadsfasdfads
       {children}
     </main>
   );

@@ -1,6 +1,7 @@
 export type Question_T = {
-    questionText: string;
-    answer: string;
-    section: string;
-    entity: string;
+  _id: string;
+  questionText: string;
+  answer: string;
+  section: string;
+  entity: string;
 };

@@ -5,30 +5,43 @@ import { Radio, Space, Typography } from 'antd';
 
 import styles from './styles.module.scss';
 
+enum QuestionType {
+  Excellent = 'Excellent',
+  VeryGood = 'Very Good',
+  Good = 'Good',
+  Fair = 'Fair',
+  Poor = 'Poor',
+}
 const { Text } = Typography;
-function Question() {
-  const [optionValue, setOptionValue] = useState(1);
+function Question({
+  question,
+  onChange,
+}: {
+  question: string;
+  onChange: (value: QuestionType) => void;
+}) {
+  const [optionValue, setOptionValue] = useState('');
   return (
     <div className={styles.question__container}>
-      <Text>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore harum
-        quam quis numquam nesciunt unde est pariatur, qui minima eaque?
-      </Text>
+      <Text>{question}</Text>
       <div
         style={{
           marginTop: '1rem',
         }}
       >
         <Radio.Group
-          onChange={(e) => setOptionValue(e.target.value)}
+          onChange={(e) => {
+            setOptionValue(e.target.value);
+            onChange(e.target.value);
+          }}
           value={optionValue}
         >
           <Space direction="vertical">
-            <Radio value={1}>Excellent</Radio>
-            <Radio value={2}>Very Good</Radio>
-            <Radio value={3}>Good</Radio>
-            <Radio value={4}>Fair</Radio>
-            <Radio value={5}>Poor</Radio>
+            <Radio value={QuestionType.Excellent}>Excellent</Radio>
+            <Radio value={QuestionType.VeryGood}>Very Good</Radio>
+            <Radio value={QuestionType.Good}>Good</Radio>
+            <Radio value={QuestionType.Fair}>Fair</Radio>
+            <Radio value={QuestionType.Poor}>Poor</Radio>
           </Space>
         </Radio.Group>
       </div>

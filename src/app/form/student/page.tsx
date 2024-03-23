@@ -67,7 +67,7 @@ const Student = () => {
       >
         <LabelInput
           value={universityRoll}
-          placeholder="Name"
+          placeholder="University Roll"
           onChange={(val) => setUniversityRoll(val)}
         />
 

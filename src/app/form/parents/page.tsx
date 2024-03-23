@@ -7,6 +7,7 @@ import { Button, Typography } from 'antd';
 import { getParentQuestions } from '@/app/_functions/parent';
 import LabelInput from '@/components/LabelInput/LabelInput';
 import LabelSelect from '@/components/LabelSelect/LabelSelect';
+import Loading from '@/components/Loading/Loading';
 import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
 
@@ -44,7 +45,7 @@ const Parent = () => {
     margin: '1.5rem 1rem',
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   return (
     <div>
       <Title

@@ -4,8 +4,12 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, Typography } from 'antd';
 
-import { getAlumniQuestions, postAlumniResponse } from '@/app/_functions/alumni';
+import {
+  getAlumniQuestions,
+  postAlumniResponse,
+} from '@/app/_functions/alumni';
 import LabelInput from '@/components/LabelInput/LabelInput';
+import Loading from '@/components/Loading/Loading';
 import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
 
@@ -51,7 +55,7 @@ const Alumni = () => {
     margin: '1.5rem 1rem',
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   return (
     <div>
       <Title
@@ -282,30 +286,29 @@ const Alumni = () => {
       >
         <Button
           type="default"
-          onClick={async() => {
+          onClick={async () => {
             const newanswers = Object.keys(answers).map((key) => {
               return {
                 question_id: key,
                 answer: answers[key],
               };
-            })
+            });
             // console.log(newanswers);
             const data = {
-              name : name,
-              branch : branch,
-              batch : batch,
+              name: name,
+              branch: branch,
+              batch: batch,
               answers: newanswers,
               opportunities: opportunities,
               alumniInfo: alumniInfo,
-            }
+            };
             setLoading(true);
             const res = await postAlumniResponse(data);
             // console.log(res);
-            if(res.success) {
+            if (res.success) {
               alert('Response submitted successfully');
             }
             setLoading(false);
-
           }}
         >
           Submit

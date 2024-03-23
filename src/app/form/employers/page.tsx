@@ -6,6 +6,7 @@ import { Button, Typography } from 'antd';
 
 import { getEmployerQuestions } from '@/app/_functions/employer';
 import LabelInput from '@/components/LabelInput/LabelInput';
+import Loading from '@/components/Loading/Loading';
 import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
 
@@ -42,7 +43,7 @@ const Employee = () => {
     margin: '1.5rem 1rem',
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   return (
     <div>
       <Title

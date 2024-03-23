@@ -12,7 +12,7 @@ import { Question_T } from '@/types/Question';
 
 const { Text, Title } = Typography;
 
-const Teacher = () => {
+const Parent = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -55,7 +55,7 @@ const Teacher = () => {
           fontSize: '1.75rem',
         }}
       >
-        Teacher Feedback Form
+        Parent Feedback Form
       </Title>
 
       <div
@@ -187,4 +187,4 @@ const Teacher = () => {
   );
 };
 
-export default Teacher;
+export default Parent;

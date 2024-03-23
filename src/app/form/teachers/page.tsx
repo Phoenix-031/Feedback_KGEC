@@ -98,7 +98,7 @@ const Teacher = () => {
 
       <div>
         <div>
-          {questions.map((question: Question_T, index) => {
+          {questions?.map((question: Question_T, index) => {
             return (
               <Question
                 key={index}

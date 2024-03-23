@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 export const getAlumniQuestions = async () => {
-  // const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const API_URL = 'www.kgec-naac.in/api'
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   try {
     const response = await axios.get(`${API_URL}/alumni`);
@@ -28,8 +27,8 @@ export const getAlumniQuestions = async () => {
 
 
 export const postAlumniResponse = async (data: any) => {
-    // const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const API_URL = 'www.kgec-naac.in/api'
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    console.log(`${API_URL}/alumni`)
     try {
         const response = await axios.post(`${API_URL}/alumni`, data);
         console.log(response);

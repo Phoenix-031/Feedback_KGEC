@@ -28,6 +28,7 @@ export const getAlumniQuestions = async () => {
 
 export const postAlumniResponse = async (data: any) => {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    console.log(`${API_URL}/alumni`)
     try {
         const response = await axios.post(`${API_URL}/alumni`, data);
         console.log(response);

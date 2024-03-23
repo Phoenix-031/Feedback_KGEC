@@ -5,15 +5,19 @@ const studentSchema = new Schema(
   {
     rollNo : {
         type: String,
-        required: true
+        default : ""
     },
     department :{
         type: String,
-        required: true
+        default : ""
     },
     yearOfStudy: {
         type: String,
-        required: true
+        default : ""
+    },
+    academicYear : {
+        type: String,
+        default : ""
     },
     answers :[{
        question_id : mongoose.Schema.Types.ObjectId,

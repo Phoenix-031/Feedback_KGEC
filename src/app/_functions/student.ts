@@ -29,7 +29,7 @@ export const getStudentQuestions = async () => {
 export const postStudentResponse = async (data: any) => {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     try {
-        const response = await axios.post(`${API_URL}/alumni`, data);
+        const response = await axios.post(`${API_URL}/student`, data);
         // if (response.status !== 200) {
         // return {
         //     success: false,

@@ -11,6 +11,7 @@ import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
 
 import { Departments, YearOfStudy } from './types';
+import { postStudentResponse } from '@/app/_functions/student';
 
 const { Text, Title } = Typography;
 
@@ -178,12 +179,37 @@ const Student = () => {
       >
         <Button
           type="default"
-          onClick={() => {
-            console.log(universityRoll);
-            console.log(accademicYear);
-            console.log(answers);
-            console.log(department);
-            console.log(yearOfStudy);
+          // onClick={() => {
+          //   console.log(universityRoll);
+          //   console.log(accademicYear);
+          //   console.log(answers);
+          //   console.log(department);
+          //   console.log(yearOfStudy);
+          // }}
+
+          onClick={async() => {
+            const newanswers = Object.keys(answers).map((key) => {
+              return {
+                question_id: key,
+                answer: answers[key],
+              };
+            })
+            // console.log(newanswers);
+            const data = {
+              rollNo : universityRoll,
+              department: department,
+              accademicYear: accademicYear,
+              answers:newanswers,
+              yearOfStudy: yearOfStudy,
+            }
+            setLoading(true);
+            const res = await postStudentResponse(data);
+            // console.log(res);
+            if(res.success) {
+              alert('Response submitted successfully');
+            }
+            setLoading(false);
+
           }}
         >
           Submit

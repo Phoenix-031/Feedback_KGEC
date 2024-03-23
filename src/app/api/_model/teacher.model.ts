@@ -5,16 +5,20 @@ const teacherSchema = new Schema(
   {
     academicYear :{
         type: String,
-        required: true
+        default: ""
     },
     name :{
         type: String,
-        required: true
+        default: ""
     },
     branch :{
         type: String,
-        required: true
-    }
+        default: ""
+    },
+    answers :[{
+       question_id : mongoose.Schema.Types.ObjectId,
+       answer: String
+    }]
   },
   {
     timestamps: true,

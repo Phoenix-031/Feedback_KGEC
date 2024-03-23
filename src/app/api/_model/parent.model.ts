@@ -22,7 +22,11 @@ const parentSchema = new Schema(
     studentName :{
         type: String,
         required: true
-    }
+    },
+    answers :[{
+       question_id : mongoose.Schema.Types.ObjectId,
+       answer: String
+    }]
   },
   {
     timestamps: true,

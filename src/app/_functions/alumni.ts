@@ -30,20 +30,15 @@ export const postAlumniResponse = async (data: any) => {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     try {
         const response = await axios.post(`${API_URL}/alumni`, data);
-        // if (response.status !== 200) {
-        // return {
-        //     success: false,
-        //     message: 'Response failed',
-        // };
-        // }
+        console.log(response);
         return {
-        success: true,
-        message: 'Response successful',
+          success: true,
+          message: 'Response successful',
         };
     } catch (error) {
         return {
-        success: false,
-        message: 'Something went wrong',
+          success: false,
+          message: 'Something went wrong',
         };
     }
 }

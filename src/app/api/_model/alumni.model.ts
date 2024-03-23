@@ -5,17 +5,48 @@ const alumniSchema = new Schema(
   {
     branch :{
         type: String,
-        required: true
+        default : ""
     },
     batch :{
         type: String,
-        required: true
+        default : ""
     },
     name :{
         type: String,
-        required: true
-    }
-  },
+        default : ""
+    },
+    opportunities : {
+      type :String,
+      default : ""
+    },
+    alumniInfo : {
+      name : {
+        type : String,
+        default : ""
+      },
+      organization : {
+        type : String,
+        default : ""
+      },
+      position : {
+        type : String,
+        default : ""
+      },
+      graduationYear : {
+        type : String,
+        default : ""
+      },  
+      suggestions : {
+        type : String,
+        default : ""
+      } 
+    },
+    answers :[{
+       question_id : mongoose.Schema.Types.ObjectId,
+       answer: String
+    }]
+
+    },
   {
     timestamps: true,
   }

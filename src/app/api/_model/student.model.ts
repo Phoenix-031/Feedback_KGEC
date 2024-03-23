@@ -14,7 +14,11 @@ const studentSchema = new Schema(
     yearOfStudy: {
         type: String,
         required: true
-    }
+    },
+    answers :[{
+       question_id : mongoose.Schema.Types.ObjectId,
+       answer: String
+    }]
   },
   {
     timestamps: true,

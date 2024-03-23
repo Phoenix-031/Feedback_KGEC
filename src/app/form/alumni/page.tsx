@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, Typography } from 'antd';
 
-import { getAlumniQuestions } from '@/app/_functions/alumni';
+import { getAlumniQuestions, postAlumniResponse } from '@/app/_functions/alumni';
 import LabelInput from '@/components/LabelInput/LabelInput';
 import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
@@ -282,13 +282,30 @@ const Alumni = () => {
       >
         <Button
           type="default"
-          onClick={() => {
-            console.log(name);
-            console.log(branch);
-            console.log(batch);
-            console.log(answers);
-            console.log(opportunities);
-            console.log(alumniInfo);
+          onClick={async() => {
+            const newanswers = Object.keys(answers).map((key) => {
+              return {
+                question_id: key,
+                answer: answers[key],
+              };
+            })
+            // console.log(newanswers);
+            const data = {
+              name : name,
+              branch : branch,
+              batch : batch,
+              answers: newanswers,
+              opportunities: opportunities,
+              alumniInfo: alumniInfo,
+            }
+            setLoading(true);
+            const res = await postAlumniResponse(data);
+            // console.log(res);
+            if(res.success) {
+              alert('Response submitted successfully');
+            }
+            setLoading(false);
+
           }}
         >
           Submit

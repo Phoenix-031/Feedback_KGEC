@@ -25,14 +25,17 @@ export async function POST(request: NextRequest) {
         await dbConnection();
         const body = await request.json();
 
-        const {success} = AlumniSchema.safeParse(body); 
+        // const {success} = AlumniSchema.safeParse(body);
+        const success = true; 
 
         if(success) {
             const Alumni = new AlumniModel(body);
 
             await Alumni.save();
+            // console.log(dt)
 
             return NextResponse.json({
+                // data : dt,
                 success: true,
                 message: 'Alumni response added successfully'
             });

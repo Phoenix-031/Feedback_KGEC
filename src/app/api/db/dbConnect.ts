@@ -8,7 +8,7 @@ export const dbConnection = async () => {
     // }
     const conn = await mongoose.connect(
       // process.env.CONNECTION_URI,
-      'mongodb+srv://weranonymous3112:TgnlqhSC9gqKSlTu@cluster0.0vftyj8.mongodb.net/kgec-feedback-prod?retryWrites=true&w=majority&appName=Cluster0'
+      'mongodb+srv://weranonymous3112:TgnlqhSC9gqKSlTu@cluster0.0vftyj8.mongodb.net/kgec-feedback-prod?retryWrites=true&w=majority&appName=Cluster0',
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,

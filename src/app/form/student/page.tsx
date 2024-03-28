@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { Button, Typography } from 'antd';
 
 import { useGetStudentQuestions, usePostStudentResponse } from '@/app/_functions/student';
-import { getTeacherQuestions } from '@/app/_functions/teacher';
 import LabelInput from '@/components/LabelInput/LabelInput';
 import LabelSelect from '@/components/LabelSelect/LabelSelect';
 import Loading from '@/components/Loading/Loading';

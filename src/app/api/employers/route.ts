@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {z} from 'zod';
 
-import EmployerModel from '../_model/parent.model';
+import EmployerModel from '../_model/employer.model';
 import { dbConnection } from '../db/dbConnect';
 import { EmployerSchema } from '@/_validation/Employer.schema';
 import QuestionModel from '../_model/question.model';
@@ -25,14 +25,14 @@ export async function POST(request: NextRequest) {
 
         await dbConnection();
         const body = await request.json();
-
-        const {success} = EmployerSchema.safeParse(body); 
+        // const {success} = EmployerSchema.safeParse(body); 
+        const success = true;
 
         if(success) {
             const Employer = new EmployerModel(body);
 
-            await Employer.save();
-
+            const emp = await Employer.save();
+            
             return NextResponse.json({
                 success: true,
                 message: 'Employer response added successfully'

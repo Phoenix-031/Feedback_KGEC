@@ -5,11 +5,11 @@ const employerSchema = new Schema(
   {
     nameOfCompany : {
         type: String,
-        required: true
+        default: ""
     },
     noepwd :{
         type: String,
-        required: true
+        default: ""
     },
     answers :[{
        question_id : mongoose.Schema.Types.ObjectId,

@@ -5,23 +5,27 @@ const parentSchema = new Schema(
   {
     education : {
         type: String,
-        required: true
+        default: ''
     },
     occupation : {
         type: String,
-        required: true
+        default: ''
     },
     relationship :{
         type: String,
-        required: true
+        default: ''
     },
     name :{
         type: String,
-        required: true
+        default: ''
+    },
+    academicYear : {
+      type:String,
+      default: ''
     },
     studentName :{
         type: String,
-        required: true
+        default: ''
     },
     answers :[{
        question_id : mongoose.Schema.Types.ObjectId,

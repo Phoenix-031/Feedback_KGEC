@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Button, Typography } from 'antd';
 
 import {
-  getAlumniQuestions,
-  postAlumniResponse,
+  useGetAlumniQuestions,
+  usePostAlumniResponse,
 } from '@/app/_functions/alumni';
 import LabelInput from '@/components/LabelInput/LabelInput';
 import Loading from '@/components/Loading/Loading';
@@ -14,13 +14,16 @@ import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
 
 import styles from './style.module.scss';
+import { useRouter } from 'next/navigation';
 
 const { Text, Title } = Typography;
 
 const Alumni = () => {
-  const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(true);
 
+  const alumniQuery = useGetAlumniQuestions();
+  const alumniResponseMutation = usePostAlumniResponse();
+  const router = useRouter();
+  
   /**
    * response states
    */
@@ -40,23 +43,12 @@ const Alumni = () => {
     suggestions: '',
   });
 
-  useEffect(() => {
-    const getdata = async () => {
-      setLoading(true);
-      const dt = await getAlumniQuestions();
-      setQuestions(dt.data);
-      setLoading(false);
-    };
-
-    getdata();
-  }, []);
-
   const textStyles: React.CSSProperties = {
     margin: '1.5rem 1rem',
   };
 
-  if (loading) return <Loading />;
   return (
+    alumniQuery.isLoading ? <Loading /> : (
     <div>
       <Title
         level={2}
@@ -111,9 +103,8 @@ const Alumni = () => {
           Knowledge
         </Title>
         <div>
-          {questions
-            .filter((question: Question_T) => question.section === 'Knowledge')
-            .map((question: Question_T, index) => {
+          {alumniQuery.data?.filter((question: Question_T) => question.section === 'Knowledge')
+            .map((question: Question_T, index:number) => {
               return (
                 <Question
                   key={index}
@@ -137,12 +128,11 @@ const Alumni = () => {
           Communication Skills
         </Title>
         <div>
-          {questions
-            .filter(
+          {alumniQuery.data?.filter(
               (question: Question_T) =>
                 question.section === 'Communication Skills'
             )
-            .map((question: Question_T, index) => {
+            .map((question: Question_T, index:number) => {
               return (
                 <Question
                   key={index}
@@ -167,12 +157,11 @@ const Alumni = () => {
         </Title>
 
         <div>
-          {questions
-            .filter(
+          {alumniQuery.data?.filter(
               (question: Question_T) =>
                 question.section === 'Interpersonal Skills'
             )
-            .map((question: Question_T, index) => {
+            .map((question: Question_T, index:number) => {
               return (
                 <Question
                   key={index}
@@ -197,12 +186,11 @@ const Alumni = () => {
         </Title>
 
         <div>
-          {questions
-            .filter(
+          {alumniQuery.data?.filter(
               (question: Question_T) =>
                 question.section === 'Management/ leadership Skills'
             )
-            .map((question: Question_T, index) => {
+            .map((question: Question_T, index:number) => {
               return (
                 <Question
                   key={index}
@@ -293,7 +281,6 @@ const Alumni = () => {
                 answer: answers[key],
               };
             });
-            // console.log(newanswers);
             const data = {
               name: name,
               branch: branch,
@@ -302,19 +289,23 @@ const Alumni = () => {
               opportunities: opportunities,
               alumniInfo: alumniInfo,
             };
-            setLoading(true);
-            const res = await postAlumniResponse(data);
-            // console.log(res);
-            if (res.success) {
-              alert('Response submitted successfully');
-            }
-            setLoading(false);
+            await alumniResponseMutation.mutateAsync(data, {
+              onSuccess: () => {
+                router.push('/')
+                alert('Response submitted successfully');
+              },
+              onError: () => {
+                router.push('/')
+                alert('Response not submitted');
+              },
+            });
           }}
         >
           Submit
         </Button>
       </div>
     </div>
+    )
   );
 };
 

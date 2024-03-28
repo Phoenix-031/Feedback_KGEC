@@ -26,7 +26,8 @@ export async function POST(request: NextRequest) {
         await dbConnection();
         const body = await request.json();
 
-        const {success} = ParentSchema.safeParse(body); 
+        // const {success} = ParentSchema.safeParse(body);
+        const success = true 
 
         if(success) {
             const Parent = new ParentModel(body);

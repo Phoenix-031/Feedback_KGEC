@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { MutatingDots } from 'react-loader-spinner';
+
 function Loading() {
   return (
     <div
@@ -12,7 +14,17 @@ function Loading() {
         backdropFilter: 'blur(5px)',
       }}
     >
-      Loading...
+      <MutatingDots
+        visible={true}
+        height="100"
+        width="100"
+        color="gray"
+        secondaryColor="gray"
+        radius="12.5"
+        ariaLabel="mutating-dots-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
     </div>
   );
 }

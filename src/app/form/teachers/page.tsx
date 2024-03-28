@@ -1,23 +1,26 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Button, Typography } from 'antd';
 
 import {
-  getTeacherQuestions,
-  postTeacherResponse,
+  useGetTeacherQuestions,
+  usePostTeacherResponse,
 } from '@/app/_functions/teacher';
 import LabelInput from '@/components/LabelInput/LabelInput';
 import Loading from '@/components/Loading/Loading';
 import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
+import { useRouter } from 'next/navigation';
 
 const { Text, Title } = Typography;
 
 const Teacher = () => {
-  const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(true);
+
+  const teacherQuery = useGetTeacherQuestions();
+  const teacherResponseMutation = usePostTeacherResponse();
+  const router= useRouter()
 
   /**
    * response states
@@ -29,23 +32,12 @@ const Teacher = () => {
     [key: string]: string;
   }>({});
 
-  useEffect(() => {
-    const getdata = async () => {
-      setLoading(true);
-      const dt = await getTeacherQuestions();
-      setQuestions(dt.data);
-      setLoading(false);
-    };
-
-    getdata();
-  }, []);
-
   const textStyles: React.CSSProperties = {
     margin: '1.5rem 1rem',
   };
 
-  if (loading) return <Loading />;
   return (
+    teacherQuery.isLoading ? <Loading /> : (
     <div>
       <Title
         level={2}
@@ -106,7 +98,7 @@ const Teacher = () => {
 
       <div>
         <div>
-          {questions?.map((question: Question_T, index) => {
+          {teacherQuery.data?.map((question: Question_T, index:number) => {
             return (
               <Question
                 key={index}
@@ -142,26 +134,31 @@ const Teacher = () => {
                 answer: answers[key],
               };
             });
-            // console.log(newanswers);
             const data = {
               name: name,
               branch: branch,
               answers: newanswers,
               accademicYear: accademicYear,
             };
-            setLoading(true);
-            const res = await postTeacherResponse(data);
-            // console.log(res);
-            if (res.success) {
-              alert('Response submitted successfully');
-            }
-            setLoading(false);
+
+            await teacherResponseMutation.mutateAsync(data, {
+              onSuccess: () => {
+                router.push('/');
+                alert('Response submitted successfully');
+              },
+              onError: () => {
+                router.push('/');
+                alert('Response not submitted');
+              },
+            });
+            
           }}
         >
           Submit
         </Button>
       </div>
     </div>
+    )
   );
 };
 

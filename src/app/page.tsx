@@ -51,48 +51,6 @@ const App = () => {
       <div className={style.main__container__heading}>
         <p>Feedback Portal</p>
       </div>
-      {/* <div className={style.main__flex__container}>
-        <div>
-          <Link href="/form/parents">
-            <div>
-              <RiParentFill />
-            </div>
-            <p>Parent Feedback</p>
-          </Link>
-        </div>
-        <div>
-          <Link href="/form/student">
-            <div>
-              <PiStudentBold />
-            </div>
-            Student Feedback
-          </Link>
-        </div>
-        <div>
-          <Link href="/form/teachers">
-            <div>
-              <FaChalkboardTeacher />
-            </div>
-            Teacher Feedback
-          </Link>
-        </div>
-        <div>
-          <Link href="/form/alumni">
-            <div>
-              <MdPerson4 />
-            </div>
-            Alumni Feedback
-          </Link>
-        </div>
-        <div>
-          <Link href="/form/employers">
-            <div>
-              <BsFileEarmarkPersonFill />
-            </div>
-            Employers Feedback
-          </Link>
-        </div>
-      </div> */}
       <div
         style={{
           width: '100%',

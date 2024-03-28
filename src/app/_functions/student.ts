@@ -1,49 +1,24 @@
 import axios from 'axios';
+import { useQuery, useMutation } from '@tanstack/react-query';
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const getStudentQuestions = async () => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const useGetStudentQuestions = () => {
+  return useQuery({
+    queryKey:['studentQuestions'],
+    queryFn: async() => {
+      const res = await axios.get(`${API_URL}/student`);
+      return res.data;
+    },
+  });
+}
 
-  try {
-    const response = await axios.get(`${API_URL}/student`);
-
-    return {
-        success: true,
-        data: response.data
+export const usePostStudentResponse = () => {
+  return useMutation({
+    mutationKey: ["postStudentResponse"],
+    mutationFn : async(data:any) => {
+      const res = await axios.post(`${API_URL}/student`, data);
+      return res.data;
     }
+  })
 
-    // if (response.status !== 200) {
-    //   return {
-    //     success: false,
-    //     message: 'Login failed',
-    //   };
-    // }
-  } catch (error) {
-    return {
-      success: false,
-      message: 'Something went wrong',
-    };
-  }
-};
-
-
-export const postStudentResponse = async (data: any) => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
-    try {
-        const response = await axios.post(`${API_URL}/student`, data);
-        // if (response.status !== 200) {
-        // return {
-        //     success: false,
-        //     message: 'Response failed',
-        // };
-        // }
-        return {
-        success: true,
-        message: 'Response successful',
-        };
-    } catch (error) {
-        return {
-        success: false,
-        message: 'Something went wrong',
-        };
-    }
 }

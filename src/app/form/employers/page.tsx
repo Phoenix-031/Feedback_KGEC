@@ -4,18 +4,21 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, Typography } from 'antd';
 
-import { getEmployerQuestions } from '@/app/_functions/employer';
+import { useGetEmployerQuestions, usePostEmployerResponse } from '@/app/_functions/employer';
 import LabelInput from '@/components/LabelInput/LabelInput';
 import Loading from '@/components/Loading/Loading';
 import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
 
+import { useRouter } from 'next/navigation';
+
 const { Text, Title } = Typography;
 
 const Employee = () => {
-  const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(true);
 
+  const router = useRouter()
+  const getEmployerQuestionQuery = useGetEmployerQuestions();
+  const postEmployerResponseMutation = usePostEmployerResponse();
   /**
    * response states
    */
@@ -28,22 +31,14 @@ const Employee = () => {
     [key: string]: string;
   }>({});
 
-  useEffect(() => {
-    const getdata = async () => {
-      setLoading(true);
-      const dt = await getEmployerQuestions();
-      setQuestions(dt.data);
-      setLoading(false);
-    };
-
-    getdata();
-  }, []);
-
+  
   const textStyles: React.CSSProperties = {
     margin: '1.5rem 1rem',
   };
 
-  if (loading) return <Loading />;
+  {
+    getEmployerQuestionQuery.isLoading && <Loading />;
+  }
   return (
     <div>
       <Title
@@ -129,7 +124,7 @@ const Employee = () => {
 
       <div>
         <div>
-          {questions.map((question: Question_T, index) => {
+          {getEmployerQuestionQuery.data?.map((question: Question_T, index : number) => {
             return (
               <Question
                 key={index}
@@ -158,10 +153,24 @@ const Employee = () => {
       >
         <Button
           type="default"
-          onClick={() => {
-            console.log(companyName);
-            console.log(nameOfEvaluatingPersonWithDesignation);
-            console.log(answers);
+          loading={postEmployerResponseMutation.isSuccess}
+          onClick={async() => {
+           await postEmployerResponseMutation.mutateAsync({
+              nameOfCompany:companyName,
+              noepwd : nameOfEvaluatingPersonWithDesignation,
+              answers,
+            },
+            {
+              onSuccess : () => {
+                router.push("/")
+                alert("Response submitted successfully")
+              },
+              onError : (error) => {
+                console.log(error)
+                router.push('/')
+              }
+            },
+            );
           }}
         >
           Submit

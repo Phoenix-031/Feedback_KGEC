@@ -1,21 +1,27 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Button, Typography } from 'antd';
 
-import { getParentQuestions } from '@/app/_functions/parent';
+import { useGetParentQuestions, usePostParentResponse } from '@/app/_functions/parent';
 import LabelInput from '@/components/LabelInput/LabelInput';
 import LabelSelect from '@/components/LabelSelect/LabelSelect';
 import Loading from '@/components/Loading/Loading';
 import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
+import { useRouter } from 'next/navigation';
 
 const { Text, Title } = Typography;
 
 const Parent = () => {
-  const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(true);
+
+  const router = useRouter()
+  const getParentQuestionQuery = useGetParentQuestions();
+  const postParentResponseMutation = usePostParentResponse();
+  
+  // const [questions, setQuestions] = useState([]);
+  // const [loading, setLoading] = useState(true);
 
   /**
    * response states
@@ -30,23 +36,14 @@ const Parent = () => {
     [key: string]: string;
   }>({});
 
-  useEffect(() => {
-    const getdata = async () => {
-      setLoading(true);
-      const dt = await getParentQuestions();
-      setQuestions(dt.data);
-      setLoading(false);
-    };
-
-    getdata();
-  }, []);
 
   const textStyles: React.CSSProperties = {
     margin: '1.5rem 1rem',
   };
 
-  if (loading) return <Loading />;
   return (
+    
+    getParentQuestionQuery.isLoading? <Loading /> : (
     <div>
       <Title
         level={2}
@@ -142,7 +139,7 @@ const Parent = () => {
 
       <div>
         <div>
-          {questions.map((question: Question_T, index) => {
+          {getParentQuestionQuery.data?.map((question: Question_T, index : number) => {
             return (
               <Question
                 key={index}
@@ -171,20 +168,40 @@ const Parent = () => {
       >
         <Button
           type="default"
-          onClick={() => {
-            console.log(name);
-            console.log(studentName);
-            console.log(accademicYear);
-            console.log(answers);
-            console.log(education);
-            console.log(occupation);
-            console.log(relationShip);
+          onClick={async() => {
+            await postParentResponseMutation.mutateAsync({
+              name,
+              studentName,
+              accademicYear,
+              answers,
+              education,
+              occupation,
+              relationship:relationShip,
+            },{
+              onSuccess :() => {
+                router.push('/')
+                alert("Response submitted successfully")
+              },
+              onError :() => {
+                router.push('/')
+                alert("Response not submitted")
+              }
+            });
+            // console.log(name);
+            // console.log(studentName);
+            // console.log(accademicYear);
+            // console.log(answers);
+            // console.log(education);
+            // console.log(occupation);
+            // console.log(relationShip);
           }}
         >
           Submit
         </Button>
       </div>
     </div>
+      )
+    
   );
 };
 

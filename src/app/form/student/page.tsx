@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, Typography } from 'antd';
 
-import { postStudentResponse } from '@/app/_functions/student';
+import { useGetStudentQuestions, usePostStudentResponse } from '@/app/_functions/student';
 import { getTeacherQuestions } from '@/app/_functions/teacher';
 import LabelInput from '@/components/LabelInput/LabelInput';
 import LabelSelect from '@/components/LabelSelect/LabelSelect';
@@ -13,12 +13,16 @@ import Question from '@/components/Question/Question';
 import { Question_T } from '@/types/Question';
 
 import { Departments, YearOfStudy } from './types';
+import { useRouter } from 'next/navigation';
 
 const { Text, Title } = Typography;
 
 const Student = () => {
-  const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(true);
+
+  const studentQuery = useGetStudentQuestions();
+  const studentResponseMutation = usePostStudentResponse();
+  const router = useRouter()
+  
 
   /**
    * response states
@@ -31,23 +35,12 @@ const Student = () => {
     [key: string]: string;
   }>({});
 
-  useEffect(() => {
-    const getdata = async () => {
-      setLoading(true);
-      const dt = await getTeacherQuestions();
-      setQuestions(dt.data);
-      setLoading(false);
-    };
-
-    getdata();
-  }, []);
-
   const textStyles: React.CSSProperties = {
     margin: '1.5rem 1rem',
   };
 
-  if (loading) return <Loading />;
   return (
+    studentQuery.isLoading ? <Loading /> : (
     <div>
       <Title
         level={2}
@@ -151,7 +144,7 @@ const Student = () => {
 
       <div>
         <div>
-          {questions.map((question: Question_T, index) => {
+          {studentQuery.data?.map((question: Question_T, index : number) => {
             return (
               <Question
                 key={index}
@@ -180,13 +173,6 @@ const Student = () => {
       >
         <Button
           type="default"
-          // onClick={() => {
-          //   console.log(universityRoll);
-          //   console.log(accademicYear);
-          //   console.log(answers);
-          //   console.log(department);
-          //   console.log(yearOfStudy);
-          // }}
 
           onClick={async () => {
             const newanswers = Object.keys(answers).map((key) => {
@@ -195,7 +181,6 @@ const Student = () => {
                 answer: answers[key],
               };
             });
-            // console.log(newanswers);
             const data = {
               rollNo: universityRoll,
               department: department,
@@ -203,19 +188,24 @@ const Student = () => {
               answers: newanswers,
               yearOfStudy: yearOfStudy,
             };
-            setLoading(true);
-            const res = await postStudentResponse(data);
-            // console.log(res);
-            if (res.success) {
-              alert('Response submitted successfully');
-            }
-            setLoading(false);
+
+            await studentResponseMutation.mutateAsync(data,{
+              onSuccess : () => {
+                router.push('/')
+                alert("Response submitted successfully")
+              },
+              onError : () => {
+                router.push('/')
+                alert("Response not submitted")
+              }
+            })
           }}
         >
           Submit
         </Button>
       </div>
     </div>
+    )
   );
 };
 

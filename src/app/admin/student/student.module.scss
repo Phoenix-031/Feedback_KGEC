@@ -1,0 +1,32 @@
+@import "../../../scss/fonts";
+
+@mixin flex-container($direction: row, $justify: flex-start, $align: flex-start) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+.student__responses {
+    border: 1px solid red;
+    padding: 2rem;
+
+    &>div:nth-child(1) {
+        width: 100%;
+        @include flex-container(row, center, center);
+
+        &>button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid black;
+            font-family: $poppins-sans;
+        }
+    }
+
+    &>div:nth-child(2) {
+        width: 100%;
+        @include flex-container(row, center, center);
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+}

@@ -3,6 +3,7 @@ import {z} from 'zod';
 import { dbConnection } from '../db/dbConnect';
 import QuestionModel from '../_model/question.model';
 import { QuesitonSchema } from '@/_validation/Question.schema';
+import mongoose from 'mongoose';
 
 
 
@@ -36,15 +37,15 @@ export async function POST(request: NextRequest) {
     }    
 }
 
-export async function GET(questionId:string) {
-    try {
+// export async function GET(questionId:mongoose.Types.ObjectId) {
+//     try {
 
-    await dbConnection();
+//     await dbConnection();
 
-    const resdata = await QuestionModel.find({__id:questionId});
+//     const resdata = await QuestionModel.find({__id:questionId});
 
-    return NextResponse.json(resdata);
-    } catch (error) {
-        console.log(error);
-    }   
-}
+//     return NextResponse.json(resdata);
+//     } catch (error) {
+//         console.log(error);
+//     }   
+// }

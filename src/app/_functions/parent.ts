@@ -22,3 +22,13 @@ export const usePostParentResponse = () => {
   })
 
 }
+
+export const useGetParentResponses = () =>{
+  return useQuery({
+    queryKey:['parentResponses'],
+    queryFn: async() => {
+      const res = await axios.get(`${API_URL}/parents/responses`);
+      return res.data;
+    },
+  });
+}

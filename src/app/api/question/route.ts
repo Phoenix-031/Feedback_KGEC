@@ -4,6 +4,7 @@ import { dbConnection } from '../db/dbConnect';
 import QuestionModel from '../_model/question.model';
 import { QuesitonSchema } from '@/_validation/Question.schema';
 import mongoose from 'mongoose';
+import { NextApiRequest } from 'next';
 
 
 
@@ -36,16 +37,3 @@ export async function POST(request: NextRequest) {
         console.log(error);
     }    
 }
-
-// export async function GET(questionId:mongoose.Types.ObjectId) {
-//     try {
-
-//     await dbConnection();
-
-//     const resdata = await QuestionModel.find({__id:questionId});
-
-//     return NextResponse.json(resdata);
-//     } catch (error) {
-//         console.log(error);
-//     }   
-// }

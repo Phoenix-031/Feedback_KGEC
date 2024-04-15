@@ -9,8 +9,10 @@ import LabelInput from '@/components/LabelInput/LabelInput';
 import LabelSelect from '@/components/LabelSelect/LabelSelect';
 
 
-import styles from "./student.module.scss";
+import styles from "./teacher.module.scss";
 import ResponseContainer from '../component/ResponseContainer';
+import { useGetParentResponses } from '@/app/_functions/parent';
+import { useGetTeacherResponses } from '@/app/_functions/teacher';
 
 const { Text, Title } = Typography;
 
@@ -20,32 +22,31 @@ const StudentResponses = () => {
     margin: '1.5rem 1rem',
   };
 
-    const studentResponsesQuery = useGetStudentResponses();
-
+    const teacherResponseQuery = useGetTeacherResponses();
+    
   return (
     <div className={styles.student__responses}>
 
         <div>
-            <div>Student Responses</div>
+            <div>Teacher Responses</div>
         </div>
 
         <div className={styles.student__response}>
         {
-            studentResponsesQuery.isLoading ? <Loading /> : (
-                studentResponsesQuery.data.data?.map((studentData : any, ind : number) => {
+            teacherResponseQuery.isLoading ? <Loading /> : (
+                teacherResponseQuery.data.data?.map((teacherData : any, ind : number) => {
                     return(
                       <div key={ind}>
                         <div>
-                          Student - {ind+1}
+                          Teacher - {ind+1}
                         </div>
-                        <LabelInput value={studentData.rollNo} placeholder='Roll No' />
-                        <LabelInput value={studentData.department} placeholder='Departnemt' />
-                        <LabelInput value={studentData.yearOfStudy} placeholder='Year Of Study' />
-                        <LabelInput value={studentData.accademicYear} placeholder='Academic Year' />
+                        <LabelInput value={teacherData.name} placeholder='Name' />
+                        <LabelInput value={teacherData.branch} placeholder='Branch' />
+                        <LabelInput value={teacherData.accademicYear} placeholder='Academic Year' />
 
                         <div className={styles.response__section__container}>
                           {
-                            studentData.answers.map((ans : {question_id:string, answer:string},ind:number) => {
+                            teacherData.answers.map((ans : {question_id:string, answer:string},ind:number) => {
                               return(
                                 <ResponseContainer key={ind} questionId={ans.question_id} answer={ans.answer} />
                               )

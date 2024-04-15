@@ -20,5 +20,14 @@ export const usePostAlumniResponse = () => {
       return res.data;
     }
   })
+}
 
+export const useGetAlumniResponses = () =>{
+  return useQuery({
+    queryKey:['alumniResponses'],
+    queryFn: async() => {
+      const res = await axios.get(`${API_URL}/alumni/responses`);
+      return res.data;
+    },
+  });
 }

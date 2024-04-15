@@ -20,5 +20,14 @@ export const usePostTeacherResponse = () => {
       return res.data;
     }
   })
+}
 
+export const useGetTeacherResponses = () =>{
+  return useQuery({
+    queryKey:['teacherResponses'],
+    queryFn: async() => {
+      const res = await axios.get(`${API_URL}/teachers/responses`);
+      return res.data;
+    },
+  });
 }

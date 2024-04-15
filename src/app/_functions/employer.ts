@@ -21,5 +21,14 @@ export const usePostEmployerResponse = () => {
       return res.data;
     }
   })
+}
 
+export const useGetEmployerResponses = () =>{
+  return useQuery({
+    queryKey:['employerResponses'],
+    queryFn: async() => {
+      const res = await axios.get(`${API_URL}/employers/responses`);
+      return res.data;
+    },
+  });
 }

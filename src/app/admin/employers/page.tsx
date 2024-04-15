@@ -9,8 +9,11 @@ import LabelInput from '@/components/LabelInput/LabelInput';
 import LabelSelect from '@/components/LabelSelect/LabelSelect';
 
 
-import styles from "./student.module.scss";
+import styles from "./employer.module.scss";
 import ResponseContainer from '../component/ResponseContainer';
+import { useGetParentResponses } from '@/app/_functions/parent';
+import { useGetTeacherResponses } from '@/app/_functions/teacher';
+import { useGetEmployerResponses } from '@/app/_functions/employer';
 
 const { Text, Title } = Typography;
 
@@ -20,32 +23,29 @@ const StudentResponses = () => {
     margin: '1.5rem 1rem',
   };
 
-    const studentResponsesQuery = useGetStudentResponses();
-
+    const employerResponseQuery = useGetEmployerResponses();
+    
   return (
     <div className={styles.student__responses}>
-
         <div>
-            <div>Student Responses</div>
+            <div>Employers Responses</div>
         </div>
 
         <div className={styles.student__response}>
         {
-            studentResponsesQuery.isLoading ? <Loading /> : (
-                studentResponsesQuery.data.data?.map((studentData : any, ind : number) => {
+            employerResponseQuery.isLoading ? <Loading /> : (
+                employerResponseQuery.data.data?.map((employerData : any, ind : number) => {
                     return(
                       <div key={ind}>
                         <div>
-                          Student - {ind+1}
+                          Employer - {ind+1}
                         </div>
-                        <LabelInput value={studentData.rollNo} placeholder='Roll No' />
-                        <LabelInput value={studentData.department} placeholder='Departnemt' />
-                        <LabelInput value={studentData.yearOfStudy} placeholder='Year Of Study' />
-                        <LabelInput value={studentData.accademicYear} placeholder='Academic Year' />
+                        <LabelInput value={employerData.nameOfCompany} placeholder='Name Of Company' />
+                        <LabelInput value={employerData.noepwd} placeholder='Name of the evaluating person with Designation:' />
 
                         <div className={styles.response__section__container}>
                           {
-                            studentData.answers.map((ans : {question_id:string, answer:string},ind:number) => {
+                            employerData.answers.map((ans : {question_id:string, answer:string},ind:number) => {
                               return(
                                 <ResponseContainer key={ind} questionId={ans.question_id} answer={ans.answer} />
                               )

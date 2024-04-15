@@ -9,8 +9,9 @@ import LabelInput from '@/components/LabelInput/LabelInput';
 import LabelSelect from '@/components/LabelSelect/LabelSelect';
 
 
-import styles from "./student.module.scss";
+import styles from "./parents.module.scss";
 import ResponseContainer from '../component/ResponseContainer';
+import { useGetParentResponses } from '@/app/_functions/parent';
 
 const { Text, Title } = Typography;
 
@@ -20,32 +21,38 @@ const StudentResponses = () => {
     margin: '1.5rem 1rem',
   };
 
-    const studentResponsesQuery = useGetStudentResponses();
+    const parentResponsesQuery = useGetParentResponses();
 
+    useEffect(() => {
+      console.log(parentResponsesQuery.data);
+    },[parentResponsesQuery.isLoading])
+    
   return (
     <div className={styles.student__responses}>
 
         <div>
-            <div>Student Responses</div>
+            <div>Parent Responses</div>
         </div>
 
         <div className={styles.student__response}>
         {
-            studentResponsesQuery.isLoading ? <Loading /> : (
-                studentResponsesQuery.data.data?.map((studentData : any, ind : number) => {
+            parentResponsesQuery.isLoading ? <Loading /> : (
+                parentResponsesQuery.data.data?.map((parentData : any, ind : number) => {
                     return(
                       <div key={ind}>
                         <div>
-                          Student - {ind+1}
+                          Parent - {ind+1}
                         </div>
-                        <LabelInput value={studentData.rollNo} placeholder='Roll No' />
-                        <LabelInput value={studentData.department} placeholder='Departnemt' />
-                        <LabelInput value={studentData.yearOfStudy} placeholder='Year Of Study' />
-                        <LabelInput value={studentData.accademicYear} placeholder='Academic Year' />
+                        <LabelInput value={parentData.name} placeholder='Name' />
+                        <LabelInput value={parentData.studentName} placeholder='Student Name' />
+                        <LabelInput value={parentData.occupation} placeholder='Occupation' />
+                        <LabelInput value={parentData.accademicYear} placeholder='Academic Year' />
+                        <LabelInput value={parentData.relationship} placeholder='Relationship' />
+                        <LabelInput value={parentData.education} placeholder='Education' />
 
                         <div className={styles.response__section__container}>
                           {
-                            studentData.answers.map((ans : {question_id:string, answer:string},ind:number) => {
+                            parentData.answers.map((ans : {question_id:string, answer:string},ind:number) => {
                               return(
                                 <ResponseContainer key={ind} questionId={ans.question_id} answer={ans.answer} />
                               )

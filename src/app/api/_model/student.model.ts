@@ -19,6 +19,10 @@ const studentSchema = new Schema(
         type: String,
         default : ""
     },
+    pursuing : {
+      type: String,
+      default : ""
+    },
     answers :[{
        question_id : mongoose.Schema.Types.ObjectId,
        answer: String

@@ -5,6 +5,7 @@ export const Departments = {
   ELECTRICAL_ENGINEERING: 'Electrical Engineering',
   MECHANICAL_ENGINEERING: 'Mechanical Engineering',
   INFORMATION_TECHNOLOGY: 'Information Technology',
+  MASTERS_OF_COMPUTER_APPLICATION : "Masters of Computer Applications"
 } as const;
 
 export const YearOfStudy = {
@@ -13,3 +14,8 @@ export const YearOfStudy = {
   THIRD: 'Third',
   FOURTH: 'Fourth',
 } as const;
+
+export enum GraduationLevel {
+  "UnderGraduate" ="Undergraduate",
+  "PostGraduate" ="Postgraduate"
+}

@@ -1,47 +1,43 @@
 'use client';
-
-import React, { useEffect, useState } from 'react';
+import { useGetStudentResponses } from '@/app/_functions/student';
+import Loading from '@/components/Loading/Loading';
+import React, { useEffect } from 'react'
+import { Radio, Space } from 'antd';
 
 import { Button, Typography } from 'antd';
-
-import { useGetStudentQuestions, usePostStudentResponse } from '@/app/_functions/student';
 import LabelInput from '@/components/LabelInput/LabelInput';
 import LabelSelect from '@/components/LabelSelect/LabelSelect';
-import Loading from '@/components/Loading/Loading';
-import Question from '@/components/Question/Question';
-import { Question_T } from '@/types/Question';
-
-import { Departments, GraduationLevel, YearOfStudy } from './types';
-import { useRouter } from 'next/navigation';
 
 const { Text, Title } = Typography;
 
-const Student = () => {
+const StudentResponses = () => {
 
-  const studentQuery = useGetStudentQuestions();
-  const studentResponseMutation = usePostStudentResponse();
-  const router = useRouter()
-  
-
-  /**
-   * response states
-   */
-  const [accademicYear, setAccademicYear] = useState('');
-  const [universityRoll, setUniversityRoll] = useState('');
-  const [department, setDepartment] = useState('');
-  const [yearOfStudy, setYearOfStudy] = useState('');
-  const [pursuing, setPursuing]  = useState('UG');
-  const [answers, setAnswers] = useState<{
-    [key: string]: string;
-  }>({});
-
-  const textStyles: React.CSSProperties = {
+      const textStyles: React.CSSProperties = {
     margin: '1.5rem 1rem',
   };
 
+    const studentResponsesQuery = useGetStudentResponses();
+    // const fetchQuestionQuery = useGet
+
+    useEffect(() => {
+        console.log(studentResponsesQuery.data);
+    },[studentResponsesQuery.isLoading])
+    
   return (
-    studentQuery.isLoading ? <Loading /> : (
     <div>
+        <div>
+            <button>Print</button>
+        </div>
+
+        <div>
+            <div>Student Responses</div>
+        </div>
+
+        {
+            studentResponsesQuery.isLoading ? <Loading /> : (
+                studentResponsesQuery.data.data?.map((studentData : any, ind : number) => {
+                    return(
+    <div key={ind}>
       <Title
         level={2}
         style={{
@@ -61,33 +57,18 @@ const Student = () => {
         }}
       >
         <LabelInput
-          value={universityRoll}
+          value={studentData.rollNo}
           placeholder="University Roll"
-          onChange={(val) => setUniversityRoll(val)}
+        //   onChange={(val) => setUniversityRoll(val)}
         />
 
         <LabelInput
-          value={accademicYear}
+          value={studentData.yearOfStudy}
           placeholder="Accademic Year"
-          onChange={(val) => setAccademicYear(val)}
+        //   onChange={(val) => setAccademicYear(val)}
         />
 
-        <LabelSelect
-          placeholder="Graduation Level"
-          options={[
-            {
-              label: GraduationLevel.UnderGraduate,
-              value: GraduationLevel.UnderGraduate,
-            },
-            {
-              label: GraduationLevel.PostGraduate,
-              value: GraduationLevel.PostGraduate,
-            },
-          ]}
-          onChange={(val) =>setPursuing(val)}
-        />
-
-        <LabelSelect
+        {/* <LabelSelect
           placeholder="Department"
           options={[
             {
@@ -109,10 +90,6 @@ const Student = () => {
             {
               label: Departments.INFORMATION_TECHNOLOGY,
               value: Departments.INFORMATION_TECHNOLOGY,
-            },
-            {
-              label: Departments.MASTERS_OF_COMPUTER_APPLICATION,
-              value: Departments.MASTERS_OF_COMPUTER_APPLICATION,
             },
           ]}
           onChange={(val) => setDepartment(val)}
@@ -138,10 +115,10 @@ const Student = () => {
             },
           ]}
           onChange={(val) => setYearOfStudy(val)}
-        />
+        /> */}
       </div>
 
-      <div
+      {/* <div
         style={{
           margin: '1.5rem 1rem',
         }}
@@ -163,24 +140,37 @@ const Student = () => {
 
       <div>
         <div>
-          {studentQuery.data?.map((question: Question_T, index : number) => {
+          {studentData.answers?.map(async(question: Question_T, index : number) => {
+            const questionInfo= await 
             return (
-              <Question
-                key={index}
-                question={question.questionText}
-                onChange={(e) => {
-                  setAnswers((prev) => {
-                    return {
-                      ...prev,
-                      [question._id]: e,
-                    };
-                  });
-                }}
-              />
+                <div className={styles.question__container}>
+                <Text>{question}</Text>
+                <div
+                    style={{
+                    marginTop: '1rem',
+                    }}
+                >
+                    <Radio.Group
+                    onChange={(e) => {
+                        setOptionValue(e.target.value);
+                        onChange(e.target.value);
+                    }}
+                    value={optionValue}
+                    >
+                    <Space direction="vertical">
+                        <Radio value={QuestionType.Excellent}>Excellent</Radio>
+                        <Radio value={QuestionType.VeryGood}>Very Good</Radio>
+                        <Radio value={QuestionType.Good}>Good</Radio>
+                        <Radio value={QuestionType.Fair}>Fair</Radio>
+                        <Radio value={QuestionType.Poor}>Poor</Radio>
+                    </Space>
+                    </Radio.Group>
+                </div>
+                </div>
             );
           })}
         </div>
-      </div>
+      </div> */}
 
       <div
         style={{
@@ -190,7 +180,7 @@ const Student = () => {
           padding: '20px',
         }}
       >
-        <Button
+        {/* <Button
           type="default"
 
           onClick={async () => {
@@ -206,7 +196,6 @@ const Student = () => {
               accademicYear: accademicYear,
               answers: newanswers,
               yearOfStudy: yearOfStudy,
-              pursuing: pursuing,
             };
 
             await studentResponseMutation.mutateAsync(data,{
@@ -222,11 +211,15 @@ const Student = () => {
           }}
         >
           Submit
-        </Button>
+        </Button> */}
       </div>
     </div>
-    )
-  );
-};
+                    )
+                })
+            )
+        }
+    </div>
+  )
+}
 
-export default Student;
+export default StudentResponses

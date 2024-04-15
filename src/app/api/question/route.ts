@@ -35,3 +35,16 @@ export async function POST(request: NextRequest) {
         console.log(error);
     }    
 }
+
+export async function GET(questionId:string) {
+    try {
+
+    await dbConnection();
+
+    const resdata = await QuestionModel.find({__id:questionId});
+
+    return NextResponse.json(resdata);
+    } catch (error) {
+        console.log(error);
+    }   
+}

@@ -22,3 +22,13 @@ export const usePostStudentResponse = () => {
   })
 
 }
+
+export const useGetStudentResponses = () =>{
+  return useQuery({
+    queryKey:['studentResponses'],
+    queryFn: async() => {
+      const res = await axios.get(`${API_URL}/student/responses`);
+      return res.data;
+    },
+  });
+}

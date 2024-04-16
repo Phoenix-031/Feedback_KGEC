@@ -38,10 +38,12 @@ const StudentResponses = () => {
                         <div>
                           Student - {ind+1}
                         </div>
+                        <div>
                         <LabelInput value={studentData.rollNo} placeholder='Roll No' />
                         <LabelInput value={studentData.department} placeholder='Departnemt' />
                         <LabelInput value={studentData.yearOfStudy} placeholder='Year Of Study' />
                         <LabelInput value={studentData.accademicYear} placeholder='Academic Year' />
+                        </div>
 
                         <div className={styles.response__section__container}>
                           {

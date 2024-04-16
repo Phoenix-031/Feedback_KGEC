@@ -40,8 +40,10 @@ const StudentResponses = () => {
                         <div>
                           Employer - {ind+1}
                         </div>
+                        <div>
                         <LabelInput value={employerData.nameOfCompany} placeholder='Name Of Company' />
                         <LabelInput value={employerData.noepwd} placeholder='Name of the evaluating person with Designation:' />
+                        </div>
 
                         <div className={styles.response__section__container}>
                           {

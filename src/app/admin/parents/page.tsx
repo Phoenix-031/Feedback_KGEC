@@ -43,12 +43,14 @@ const StudentResponses = () => {
                         <div>
                           Parent - {ind+1}
                         </div>
+                        <div>
                         <LabelInput value={parentData.name} placeholder='Name' />
                         <LabelInput value={parentData.studentName} placeholder='Student Name' />
                         <LabelInput value={parentData.occupation} placeholder='Occupation' />
                         <LabelInput value={parentData.accademicYear} placeholder='Academic Year' />
                         <LabelInput value={parentData.relationship} placeholder='Relationship' />
                         <LabelInput value={parentData.education} placeholder='Education' />
+                        </div>
 
                         <div className={styles.response__section__container}>
                           {

@@ -40,7 +40,7 @@ const StudentResponses = () => {
                     return(
                       <div key={ind}>
                         <div>
-                          Alumni - {ind+1}
+                          Entry - {ind+1}
                         </div>
                         <LabelInput value={alumniData.name} placeholder='Name' />
                         <LabelInput value={alumniData.branch} placeholder='Branch' />

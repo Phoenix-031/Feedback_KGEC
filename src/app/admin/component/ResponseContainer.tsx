@@ -6,6 +6,8 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 
 import styles from './container.module.scss';
+import LabelSelect from '@/components/LabelSelect/LabelSelect';
+import Question from '@/components/Question/Question';
 
 interface ResponseCreatorProps {
     answer : string;
@@ -19,17 +21,18 @@ const ResponseContainer = ({questionId, answer}:ResponseCreatorProps) => {
   return (
     
         questionQuery.isLoading ? "Loading..." : (
-            <div className={styles.response__container}
-            >
-                <div>
-                    <p>Question :</p>
-                    <p>{questionQuery.data.questionText}</p>
-                </div>
-                <div>
-                    <p>Answer :</p>
-                    <p>{answer}</p>
-                </div>
-            </div>
+            <Question defaultValue={answer} question={questionQuery.data.questionText}/>
+            // <div className={styles.response__container}
+            // >
+            //     <div>
+            //         <p>Question :</p>
+            //         <p>{questionQuery.data.questionText}</p>
+            //     </div>
+            //     <div>
+            //         <p>Answer :</p>
+            //         <p>{answer}</p>
+            //     </div>
+            // </div>
         )
   )
 }

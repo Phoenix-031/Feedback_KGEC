@@ -1,4 +1,6 @@
 @import "../../../scss/fonts";
+@import "../../../scss/breakpoints";
+
 
 @mixin flex-container($direction: row, $justify: flex-start, $align: flex-start) {
     display: flex;
@@ -8,7 +10,6 @@
 }
 
 .student__responses {
-    padding: 2rem;
     @include flex-container(column, center, center);
 
     &>div:nth-child(1) {
@@ -19,17 +20,43 @@
     }
 
     .student__response {
-        width: 80%;
+        width: 100%;
         @include flex-container(column, center, center);
-        gap: 2rem;
+        gap: 1rem;
 
         &>div:nth-child(n) {
             width: 100%;
-            border: 1px solid gray;
             border-radius: 0.8rem;
-            padding: 1.5rem;
+            padding: 1rem;
             width: 100%;
+
+            &>div:nth-child(1) {
+                width: max-content;
+                border-bottom: 1px solid gray;
+                margin-bottom: 1rem;
+            }
         }
+
+        .response__section__container {
+            padding-top: 1rem;
+        }
+    }
+
+    @include sm {
+        padding: 1.5rem;
+
+        .student__response {
+            padding: 0.5rem;
+            width: 80%;
+
+            &>div:nth-child(n) {
+                padding: 1.5rem;
+            }
+        }
+    }
+
+    @include mobile {
+        padding: 2rem;
     }
 
 }

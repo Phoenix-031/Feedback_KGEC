@@ -16,11 +16,14 @@ const { Text } = Typography;
 function Question({
   question,
   onChange,
+  defaultValue
 }: {
   question: string;
-  onChange: (value: QuestionType) => void;
+  onChange?: (value: QuestionType) => void;
+  defaultValue?: string;
 }) {
   const [optionValue, setOptionValue] = useState('');
+
   return (
     <div className={styles.question__container}>
       <Text>{question}</Text>
@@ -32,16 +35,16 @@ function Question({
         <Radio.Group
           onChange={(e) => {
             setOptionValue(e.target.value);
-            onChange(e.target.value);
+            onChange && onChange(e.target.value);
           }}
           value={optionValue}
         >
           <Space direction="vertical">
-            <Radio value={QuestionType.Excellent}>Excellent</Radio>
-            <Radio value={QuestionType.VeryGood}>Very Good</Radio>
-            <Radio value={QuestionType.Good}>Good</Radio>
-            <Radio value={QuestionType.Fair}>Fair</Radio>
-            <Radio value={QuestionType.Poor}>Poor</Radio>
+            <Radio disabled={QuestionType.Excellent !== defaultValue} value={QuestionType.Excellent}>Excellent</Radio>
+            <Radio disabled={QuestionType.VeryGood !== defaultValue} value={QuestionType.VeryGood}>Very Good</Radio>
+            <Radio disabled={QuestionType.Good !== defaultValue} value={QuestionType.Good}>Good</Radio>
+            <Radio disabled={QuestionType.Fair !== defaultValue} value={QuestionType.Fair}>Fair</Radio>
+            <Radio disabled={QuestionType.Poor !== defaultValue} value={QuestionType.Poor}>Poor</Radio>
           </Space>
         </Radio.Group>
       </div>

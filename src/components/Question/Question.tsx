@@ -40,11 +40,11 @@ function Question({
           value={optionValue}
         >
           <Space direction="vertical">
-            <Radio disabled={QuestionType.Excellent !== defaultValue} value={QuestionType.Excellent}>Excellent</Radio>
-            <Radio disabled={QuestionType.VeryGood !== defaultValue} value={QuestionType.VeryGood}>Very Good</Radio>
-            <Radio disabled={QuestionType.Good !== defaultValue} value={QuestionType.Good}>Good</Radio>
-            <Radio disabled={QuestionType.Fair !== defaultValue} value={QuestionType.Fair}>Fair</Radio>
-            <Radio disabled={QuestionType.Poor !== defaultValue} value={QuestionType.Poor}>Poor</Radio>
+            <Radio disabled={defaultValue!==undefined && QuestionType.Excellent !== defaultValue} value={QuestionType.Excellent}>Excellent</Radio>
+            <Radio disabled={defaultValue!==undefined && QuestionType.VeryGood !== defaultValue} value={QuestionType.VeryGood}>Very Good</Radio>
+            <Radio disabled={defaultValue!==undefined && QuestionType.Good !== defaultValue} value={QuestionType.Good}>Good</Radio>
+            <Radio disabled={defaultValue!==undefined && QuestionType.Fair !== defaultValue} value={QuestionType.Fair}>Fair</Radio>
+            <Radio disabled={defaultValue!==undefined && QuestionType.Poor !== defaultValue} value={QuestionType.Poor}>Poor</Radio>
           </Space>
         </Radio.Group>
       </div>

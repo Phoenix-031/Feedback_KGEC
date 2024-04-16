@@ -30,6 +30,7 @@ export async function POST(request: NextRequest) {
         const success = true
 
         if(success) {
+            console.log(body)
             const Student = new StudentModel(body);
 
             await Student.save();

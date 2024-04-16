@@ -169,11 +169,17 @@ const Parent = () => {
         <Button
           type="default"
           onClick={async() => {
+            const newanswers = Object.keys(answers).map((key) => {
+              return {
+                question_id: key,
+                answer: answers[key],
+              };
+            });
             await postParentResponseMutation.mutateAsync({
               name,
               studentName,
               accademicYear,
-              answers,
+              answers:newanswers,
               education,
               occupation,
               relationship:relationShip,

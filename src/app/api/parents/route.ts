@@ -28,7 +28,6 @@ export async function POST(request: NextRequest) {
 
         // const {success} = ParentSchema.safeParse(body);
         const success = true 
-
         if(success) {
             const Parent = new ParentModel(body);
 

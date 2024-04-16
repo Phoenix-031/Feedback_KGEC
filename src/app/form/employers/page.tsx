@@ -155,10 +155,16 @@ const Employee = () => {
           type="default"
           loading={postEmployerResponseMutation.isSuccess}
           onClick={async() => {
+            const newanswers = Object.keys(answers).map((key) => {
+              return {
+                question_id: key,
+                answer: answers[key],
+              };
+            });
            await postEmployerResponseMutation.mutateAsync({
               nameOfCompany:companyName,
               noepwd : nameOfEvaluatingPersonWithDesignation,
-              answers,
+              answers:newanswers,
             },
             {
               onSuccess : () => {

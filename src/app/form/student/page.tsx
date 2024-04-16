@@ -30,7 +30,7 @@ const Student = () => {
   const [universityRoll, setUniversityRoll] = useState('');
   const [department, setDepartment] = useState('');
   const [yearOfStudy, setYearOfStudy] = useState('');
-  const [pursuing, setPursuing]  = useState('UG');
+  const [pursuing, setPursuing]  = useState('');
   const [answers, setAnswers] = useState<{
     [key: string]: string;
   }>({});
@@ -72,7 +72,7 @@ const Student = () => {
           onChange={(val) => setAccademicYear(val)}
         />
 
-        <LabelSelect
+        {/* <LabelSelect
           placeholder="Graduation Level"
           options={[
             {
@@ -85,7 +85,7 @@ const Student = () => {
             },
           ]}
           onChange={(val) =>setPursuing(val)}
-        />
+        /> */}
 
         <LabelSelect
           placeholder="Department"

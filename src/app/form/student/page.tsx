@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { Button, Typography } from 'antd';
+import { Alert, Button, Typography } from 'antd';
 
 import { useGetStudentQuestions, usePostStudentResponse } from '@/app/_functions/student';
 import LabelInput from '@/components/LabelInput/LabelInput';
@@ -14,7 +14,11 @@ import { Question_T } from '@/types/Question';
 import { Departments, GraduationLevel, YearOfStudy } from './types';
 import { useRouter } from 'next/navigation';
 
+import styles from './style.module.scss'
+import { truncateSync } from 'fs';
 const { Text, Title } = Typography;
+
+import {z} from "zod";
 
 const Student = () => {
 
@@ -34,6 +38,32 @@ const Student = () => {
   const [answers, setAnswers] = useState<{
     [key: string]: string;
   }>({});
+
+  const studentFormSchema = z.object({
+    universityRoll: z.string().min(10),
+    department: z.string(),
+    yearOfStudy: z.string()
+  })
+
+  // const vaidateFormSubmit = () => {
+  //   const valid = studentFormSchema.safeParse(studentFormSchema.parse({
+  //     universityRoll,
+  //     department,
+  //     yearOfStudy
+  //   }));
+  //   if (!valid) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+  const [emptyFields, setEmptyFields] = useState({
+    accademicYear: true,
+    universityRoll: true,
+    department: true,
+    yearOfStudy: true,
+    pursuing: true,
+  })
 
   const textStyles: React.CSSProperties = {
     margin: '1.5rem 1rem',
@@ -60,11 +90,20 @@ const Student = () => {
           gap: '1rem',
         }}
       >
+        <div className={styles.roll__section}>
         <LabelInput
           value={universityRoll}
           placeholder="University Roll"
           onChange={(val) => setUniversityRoll(val)}
         />
+        {
+          !emptyFields.universityRoll &&         
+          <Alert style={{
+          backgroundColor:"transparent",
+          color:"red"
+        }} type="error" message="Required Field" banner />
+        }
+        </div>
 
         <LabelInput
           value={accademicYear}
@@ -200,6 +239,15 @@ const Student = () => {
                 answer: answers[key],
               };
             });
+
+            if(universityRoll === "" ){
+              setEmptyFields({
+                ...emptyFields,
+                 universityRoll: false
+              })
+              return;
+            };
+
             const data = {
               rollNo: universityRoll,
               department: department,

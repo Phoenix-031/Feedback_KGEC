@@ -49,7 +49,7 @@ const Employee = () => {
           fontSize: '1.75rem',
         }}
       >
-        Employee Feedback Form
+        Employers Feedback Form
       </Title>
 
       <div
